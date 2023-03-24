@@ -1,15 +1,37 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import List from '../../Components/List/List.jsx';
 import "./Drugs.scss";
+import {getAllDrugsApi, showSingleDrugApi} from "../../APIs/DrugsCRUDApis.js";
+import {AuthContext} from "../../AuthContext.jsx";
 
 
 function Drugs() {
 
     const cartId = parseInt(useParams().id);
     const [maxPrice, setMaxPrice] = useState(100000);
+    const [drugsData, setDrugsData] = useState();
+    const {authKey} = useContext(AuthContext)
+
 
     const [sort, setSort] = useState(null)
+
+    useEffect(() => {
+        if (!authKey) return
+
+        getAllDrugsApi(authKey)
+            .then(response => {
+                return response.json()
+            })
+            .then(result => {
+                if (result.length > 0){
+                    setDrugsData(result)}
+                else
+                    alert("something went wrong!!" + result.toString())
+            })
+            .catch(error => console.log("catch error: "+error))
+
+    }, [authKey, location])
 
     function changeHandler(e) {
 
@@ -67,6 +89,7 @@ function Drugs() {
 
             <div className="right">
                 <List
+                    data={drugsData}
                     cartId={cartId}
                     maxPrice={maxPrice}
                     sort={sort}
