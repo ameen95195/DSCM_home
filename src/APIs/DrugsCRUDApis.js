@@ -5,7 +5,7 @@ export function getAllDrugsApi(authKey) {
     return BaseRequestApis("GET", null, "/api/durgs/index", authKey)
 }
 
-export function storeDrugRequest(tradeName, scientificName, drugDescription, drugDose, drugTypeId) {
+export function storeDrugRequest(tradeName, scientificName, drugDescription, drugDose, drugTypeId, authKey) {
     const formData = {};
     formData["trade_name"] = tradeName
     formData["scientific_name"] = scientificName

@@ -18,7 +18,7 @@ function Categories() {
             <div className="row">
                 <img src={pills} alt="" />
                 <button>
-                    <Link className='link' to="/drugs/1">
+                    <Link className='link' to="/drugs/pills">
                         Pills
                     </Link>
                 </button>
@@ -26,7 +26,7 @@ function Categories() {
             <div className="row">
             <img src={syrb} alt="" />
                 <button>
-                    <Link className='link' to="/drugs/1">
+                    <Link className='link' to="/drugs/syrup">
                     Syrup Medicine
                     </Link>
                 </button>
@@ -37,7 +37,7 @@ function Categories() {
             <div className="row">
             <img src={vitamen} alt="" />
                 <button>
-                    <Link className='link' to="/drugs/1">
+                    <Link className='link' to="/drugs/vitamins">
                     Vitamins
                     </Link>
                 </button>
@@ -50,7 +50,7 @@ function Categories() {
                     <div className="row">
                     <img src={Serum} alt="" />
                 <button>
-                    <Link className='link' to="/drugs/1">
+                    <Link className='link' to="/drugs/serum">
                     Serum
                     </Link>
                 </button>
@@ -60,7 +60,7 @@ function Categories() {
                     <div className="row">
                     <img src={vaseline} alt="" />
                 <button>
-                    <Link className='link' to="/drugs/1">
+                    <Link className='link' to="/drugs/skin">
                      Skin Care
                     </Link>
                 </button>
@@ -70,7 +70,7 @@ function Categories() {
             <div className="row">
             <img src={needle} alt="" />
                 <button>
-                    <Link className='link' to="/drugs/1">
+                    <Link className='link' to="/drugs/needle">
                     Medication Needle
                     </Link>
                 </button>

@@ -11,8 +11,8 @@ function Card({item}) {
      
         <div className="h-[400px] w-[400px] align-middle justify-center rounded-md object-center  overflow-hidden image">
           {item.isNew && <span className="roubded-md text-teal-500 ">New</span>}
-          <img src={item.img} alt="" className="mainImage" />
-          <img src={item.img2} alt="" className="subImage" />
+          <img src={item.image} alt="" className="mainImage" />
+          {/*<img src={item.img2} alt="" className="subImage" />*/}
         </div>
 
 
@@ -21,19 +21,19 @@ function Card({item}) {
       <div>
         <dt className="sr-only">Subtitle</dt>
 
-        <dd className="text-sm text-gray-500">{item.subtitle}</dd>
+        <dd className="text-sm text-gray-500">{item.scientific_name}</dd>
       </div>
 
       <div>
         <dt className="sr-only">Title</dt>
 
-        <dd className="font-medium">{item.title}</dd>
+        <dd className="font-medium">{item.trade_name}</dd>
       </div>
 
       <div>
         <dt className="sr-only">Description</dt>
 
-        <dd className="font-thin">{item.disc}</dd>
+        <dd className="font-thin">{item.drug_description}</dd>
       </div>
     </dl>
 </div>

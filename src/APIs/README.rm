@@ -1,0 +1,19 @@
+How to use apis
+
+#we have one way to call these apis by following (functions api names same as postman requests name but it has "api" at the end of function
+<functionApi>(<pass needed args here>)
+            .then(res => res.json())
+            .then(result => {<here will be the json result variable back from the backend and you can
+             write needed code when we get the result like pass result to state variable>})
+            .catch(error => console.log(error))
+
+
+#for authKey that will come form login or register will be stored in AuthContext and you can access it by following
+    const {authKey} = useContext(AuthContext)
+    and that's it now you can use authKey as you wont
+    #note same thing with user info you can get it by the same way
+    const {authKey, userInfo} = useContext(AuthContext)
+
+register, login and logout are done and no need for any actions
+
+BaseRequestApis.js file has variable named 'host' you can assign the server url inside

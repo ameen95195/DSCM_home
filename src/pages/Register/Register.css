@@ -1,5 +1,5 @@
 .register-page {
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -13,6 +13,9 @@
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
+.register-title{
+    display: inline-flex;
+}
 h2 {
     margin-top: 0;
 }
@@ -26,6 +29,7 @@ form {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+    padding: 1vw;
 }
 
 label {
@@ -50,4 +54,15 @@ input {
 
 #btnSub:hover {
     background-color: #008000;
+}
+
+td{
+    display: inline-flex;
+    width: 50%;
+}
+
+@media (max-width: 700px) {
+    td{
+        display: inline;
+    }
 }

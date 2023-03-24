@@ -1,6 +1,6 @@
 import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 
-import React from 'react';
+import React, {useContext} from 'react';
 
 import Home from './pages/Home/Home';
 import Drugs from './pages/Drugs/Drugs';
@@ -11,11 +11,12 @@ import Stores from './pages/Stores/Stores';
 import Store from './pages/Store/Store';
 
 import "./app.scss"
-import {AuthProvider} from "./AuthContext.jsx";
+import {AuthContext, AuthProvider} from "./AuthContext.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
 
 const Layout = () => {
+
     return (
         <div className="app">
             <Navbar/>
@@ -66,11 +67,12 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+
     return (
         <div>
-          <AuthProvider>
-            <RouterProvider router={router}/>
-          </AuthProvider>
+            <AuthProvider>
+                <RouterProvider router={router}/>
+            </AuthProvider>
         </div>
     )
 }

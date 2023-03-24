@@ -22,6 +22,6 @@ export function registerApi(name, email, password, address, phone, password_conf
     return BaseRequestApis('POST', formData, "/api/register")
 }
 
-export function logoutApi() {
-    return BaseRequestApis('POST', null, "/api/logout")
+export function logoutApi(authKey) {
+    return BaseRequestApis('POST', null, "/api/logout", authKey)
 }

@@ -28,6 +28,9 @@ form {
     margin-bottom: 1rem;
 }
 
+.register-title{
+    display: inline-flex;
+}
 label {
     margin-bottom: 0.5rem;
     font-weight: bold;
