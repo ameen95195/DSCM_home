@@ -5,7 +5,9 @@ import {AuthContext} from "../../AuthContext.jsx";
 import {redirect, useNavigate} from "react-router-dom";
 
 function Register() {
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        role_id: 2
+    });
     const {login} = useContext(AuthContext)
     const navigate = useNavigate()
 
@@ -31,6 +33,7 @@ function Register() {
 
     const handleChange = (event) => {
         setFormData({...formData, [event.target.id]: event.target.value});
+        console.log(event.target.value)
     };
 
     return (<div className="register-page">
@@ -76,7 +79,10 @@ function Register() {
                             </div>
                             <div className="input-group">
                                 <label htmlFor="role_id">Role id</label>
-                                <input required type="number" id="role_id" onChange={handleChange}/>
+                                <select name="role_id" onChange={handleChange} id="role_id">
+                                    <option value="2">Wholesaler</option>
+                                    <option value="3">Supplier</option>
+                                </select>
                             </div>
                         </td>
                     </tr>
