@@ -1,67 +1,93 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 import List from '../../Components/List/List.jsx';
 import "./Drugs.scss";
-import {getAllDrugsApi, showSingleDrugApi} from "../../APIs/DrugsCRUDApis.js";
 import {AuthContext} from "../../AuthContext.jsx";
+import {getAllDrugTypesApi} from "../../APIs/DrugTypeCURDApis.js";
 
 
 function Drugs() {
 
     const cartId = parseInt(useParams().id);
     const [maxPrice, setMaxPrice] = useState(100000);
-    const [drugsData, setDrugsData] = useState();
+    const [drugsData, setDrugsData] = useState([]);
+    const [allTypes, setAllTypes] = useState([])
+    const [checks, setChecks] = useState([])
+    const [search, setSearch] = useState([])
     const {authKey} = useContext(AuthContext)
+    const location = useLocation()
 
 
     const [sort, setSort] = useState(null)
 
+    function getDrugsTypeData(typeTitle) {
+        getAllDrugTypesApi(authKey)
+            .then(response => response.json())
+            .then(result => {
+                let data = []
+                if (typeTitle)
+                    result.forEach(type => {
+                        if (type["drug_type_title"] === typeTitle)
+                            if (type["drug"])
+                                data.push(...type["drug"])
+
+                    })
+                if (data.length === 0)
+                    result.forEach(type => {
+                        if (type["drug"])
+                            data.push(...type["drug"])
+                    })
+
+                setDrugsData(data)
+                setAllTypes(result)
+                setChecks(Array(result.length).fill(false))
+            })
+            .catch(error => console.log("catch error: " + error))
+    }
+
     useEffect(() => {
         if (!authKey) return
-
-        getAllDrugsApi(authKey)
-            .then(response => {
-                return response.json()
-            })
-            .then(result => {
-                if (result.length > 0){
-                    setDrugsData(result)}
-                else
-                    alert("something went wrong!!" + result.toString())
-            })
-            .catch(error => console.log("catch error: "+error))
+        const id = location.pathname.split("/").reverse()[0]
+        getDrugsTypeData(id)
 
     }, [authKey, location])
 
-    function changeHandler(e) {
 
+    function checksHandler(index, id) {
+        setChecks(prevState => prevState.map((check, i) => i === index ? check = !check : check = false))
+        if (!checks[index]) {
+            setDrugsData(allTypes[index].drug)
+        } else getDrugsTypeData("id")
+    }
+
+    function handleSearch(e) {
+        const se = e.target.value
+        setSearch(drugsData.filter(item =>
+                item.drug_description.includes(se)
+                || item.trade_name.includes(se)
+                || item.scientific_name.includes(se)
+            )
+        )
     }
 
     return (
         <div className="drugs">
             <div className="left">
                 <div className="filterItem">
+                    <h2>Search</h2>
+                    <input required type="text" id="search" placeholder="Search" onChange={handleSearch}/>
+                    <br/>
+                    {search.length > 0? "": <h6>Nothing match your search</h6>}
+
+
                     <h2>Drug Categories</h2>
-                    <div className="inputItem">
-                        <input type="checkbox" id='1' value={1} onChange={changeHandler}/>
-                        <label htmlFor="1">Pills</label>
-                    </div>
-                    <div className="inputItem">
-                        <input type="checkbox" id='2' value={2} onChange={changeHandler}/>
-                        <label htmlFor="2">Syrup Medicine</label>
-                    </div>
-                    <div className="inputItem">
-                        <input type="checkbox" id='3' value={3} onChange={changeHandler}/>
-                        <label htmlFor="3">Vitamins</label>
-                    </div>
-                    <div className="inputItem">
-                        <input type="checkbox" id='4' value={4} onChange={changeHandler}/>
-                        <label htmlFor="4">Medication Needle</label>
-                    </div>
-                    <div className="inputItem">
-                        <input type="checkbox" id='5' value={5} onChange={changeHandler}/>
-                        <label htmlFor="5">Skin Care</label>
-                    </div>
+                    {allTypes?.map((item, index) =>
+                        <div className="inputItem">
+                            <input type="checkbox" id={item.id} checked={checks[index]}
+                                   onChange={() => checksHandler(index, item.id)}/>
+                            <label htmlFor={item.id}>{item.drug_type_title}</label>
+                        </div>
+                    )}
                 </div>
 
                 <div className="filterItem">
@@ -89,7 +115,7 @@ function Drugs() {
 
             <div className="right">
                 <List
-                    data={drugsData}
+                    data={search.length > 0? search : drugsData}
                     cartId={cartId}
                     maxPrice={maxPrice}
                     sort={sort}

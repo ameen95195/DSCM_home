@@ -12,17 +12,20 @@ import voltaren2 from '../../assets/voltaren2.jpg';
 
 const List = (props) => {
 
-    const {data} = props
+    const {data, maxPrice, sort} = props
 
 
     return (
         <div className="list">
-            {data? data.map(item => (
-                <Card
-                    key={item.id}
-                    item={item}
-                />
-            )): ""}
+            {data ?
+                data.filter(item => maxPrice > 0 && maxPrice < 100000? parseInt(item.price) < maxPrice : true)
+                    .sort((a, b) => sort === "asc"? parseInt(a.price) - parseInt(b.price) : parseInt(b.price) - parseInt(a.price))
+                    .map(item => (
+                        <Card
+                            key={item.id}
+                            item={item}
+                        />
+                    )) : ""}
         </div>
     )
 }

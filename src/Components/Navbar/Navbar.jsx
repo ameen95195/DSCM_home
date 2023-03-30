@@ -10,13 +10,19 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import "./Navbar.scss";
 import "../../app.scss"
 import {AuthContext} from "../../AuthContext.jsx";
+import {useSelector} from "react-redux";
 
 
 function Navbar() {
     const navigate = useNavigate()
 
+    const drugs = useSelector((state) => state.cart.drugs);
+
     const [open, setOpen] = useState(false);
+    const [itemsCount, setItemsCount] = useState(0)
     const {authKey, userInfo, logout} = useContext(AuthContext)
+
+
 
     return (
         <div className="navbar lg:ml-8 xl:ml-[135px]">
@@ -50,15 +56,15 @@ function Navbar() {
                         <SearchOutlinedIcon/>
                         {authKey? <LogoutIcon onClick={logout}/>: <PersonOutlineOutlinedIcon onClick={() => {navigate("/login")}}/>}
 
-                        <div className="cartIcon" onClick={() => setOpen(!open)}>
+                        <div className="cartIcon" onClick={() => authKey? setOpen(!open): ""}>
                             <AddShoppingCartOutlinedIcon/>
-                            <span>0</span>
+                            {drugs.length>0? <span>{drugs.length}</span>: ""}
                         </div>
 
                     </div>
                 </div>
             </div>
-            {open && <Cart/>}
+            {open && authKey && <Cart/>}
         </div>
     )
 }

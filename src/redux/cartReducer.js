@@ -17,7 +17,8 @@ export const cartSlice = createSlice({
       }
     },
     removeItem: (state,action) => {
-      state.drugs=state.drugs.filter(item=>item.id !== action.payload)
+      console.log(action)
+      state.drugs=state.drugs.filter(item=>item.id != action.payload)
     },
     resetCart: (state) => {
       state.drugs = []

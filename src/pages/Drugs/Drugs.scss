@@ -1,34 +1,42 @@
-.drugs{
-    padding: 30px 50px;
-    display: flex;
+.drugs {
+  padding: 30px 50px;
+  display: flex;
 
-    .left{
-        flex: 1;
-        position: sticky;
-        height: 100%;
-        top: 10%;
+  .left {
+    flex: 1;
+    position: sticky;
+    height: 100%;
+    top: 10%;
 
-        .filterItem{
-            margin-bottom: 30px;
-
-
-            h2{
-                font-weight: 400;
-                margin-bottom: 20px;
-            }
+    .filterItem {
+      margin-bottom: 30px;
 
 
-            .inputItem{
-                margin-bottom: 10px;
-                
+      h2 {
+        font-weight: 400;
+        margin-bottom: 10px;
+        margin-top: 20px;
+      }
 
-                label{
-                    margin-left: 10px;
-                }
-            }
+
+      .inputItem {
+        margin-bottom: 10px;
+
+
+        label {
+          margin-left: 10px;
         }
+      }
     }
-    .right{
-        flex: 3;
-     }
+  }
+
+  .right {
+    flex: 3;
+  }
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

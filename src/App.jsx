@@ -14,6 +14,7 @@ import "./app.scss"
 import {AuthContext, AuthProvider} from "./AuthContext.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 
 const Layout = () => {
 
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
             {
                 path: '/store/:id',
                 element: <Store/>
+            },
+            {
+                path: '/checkout',
+                element: <Checkout/>
             },
 
         ]

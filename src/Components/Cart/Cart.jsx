@@ -1,47 +1,22 @@
 import React from 'react';
 
-import panadol from '../../assets/panadol.png';
 
-import solpadien from '../../assets/solpadin.jpg';
-
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 
 
 import { DeleteOutline } from '@mui/icons-material';
 
 import "./Cart.scss";
+import {removeItem, resetCart} from "../../redux/cartReducer.js";
+import {useNavigate} from "react-router-dom";
 
-function Cart() {
+function Cart(props) {
 
     const drugs = useSelector((state) => state.cart.drugs);
-   
-    
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
-    /* const data =[
-        {
-            id:1,
-            img: panadol,
-            
-            isNew: true,
-            drugName:'Panadol Advance',
-            disc: 'Panadol Advance Tablets with Optizorb Formulation',
-            subtitle:'500mg Paracetamol',
-            price:1500,
-            quantity: 10,
-        },
-        {
-            id:2,
-            img: solpadien,
-            
-            isNew: true,
-            drugName:'Panadol Advance',
-            disc: 'Panadol Advance Tablets with Optizorb Formulation',
-            subtitle:'500mg Paracetamol',
-            price:1500,
-            quantity: 10,
-        },
-    ]; */
 
     const totalPrice = () => {
         let total = 0;
@@ -50,7 +25,17 @@ function Cart() {
         });
         return total.toFixed(2);
       };
-  return (
+
+    function handleDelete(id) {
+        dispatch(removeItem(id))
+    }
+
+
+    function handleCheckout() {
+        navigate("/checkout")
+    }
+
+    return (
     <div className="cart">
         <h1>Drugs in your cart</h1>
         {drugs?.map(item =>(
@@ -62,7 +47,7 @@ function Cart() {
                     <div className="price">
                         {item.quantity} x ${item.price}
                     </div>
-                    <DeleteOutline className="delete"/>
+                    <DeleteOutline onClick={() => handleDelete(item.id)} className="delete"/>
                 </div>
             </div>
         ))}
@@ -70,8 +55,8 @@ function Cart() {
             <span>SUBTOTAL</span>
             <span>{totalPrice()}YER</span>
         </div>
-        <button>PROCEED TO CHECKOUT</button>
-        <span className="reset">Reset Cart</span>
+        <button onClick={handleCheckout}>PROCEED TO CHECKOUT</button>
+        <span className="reset" onClick={() => dispatch(resetCart())}>Reset Cart</span>
     </div>
   )
 }

@@ -12,10 +12,6 @@ function Login() {
         setFormData({...formData, [event.target.id]: event.target.value});
     };
 
-    useEffect(() => {
-        console.log(authKey)
-        if (authKey) navigate("/")
-    }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -37,6 +33,7 @@ function Login() {
 
     return (
         <div className="login-page">
+            {authKey? navigate("/"):""}
             <div className="login-box">
                 <div className={"register-title"}>
                     <h2><strong>Login</strong></h2>

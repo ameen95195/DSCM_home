@@ -1,11 +1,14 @@
 import React, {createContext, useEffect, useState} from 'react';
 import {logoutApi} from "./APIs/AuthApis.js";
+import {useDispatch} from "react-redux";
+import {resetCart} from "./redux/cartReducer.js";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [authKey, setAuthKey] = useState(null);
     const [userInfo, setUserInfo] = useState({})
+    const dispatch = useDispatch()
     useEffect(() => {
         const key = sessionStorage.getItem('authKey')
         if (key)
@@ -28,6 +31,7 @@ export const AuthProvider = ({ children }) => {
                 sessionStorage.clear()
                 setUserInfo(null)
                 setAuthKey(null);
+                dispatch(resetCart())
             })
 
     };
